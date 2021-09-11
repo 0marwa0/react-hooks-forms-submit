@@ -13,15 +13,22 @@ function Form() {
     setLastName(event.target.value);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+const [errors, setErrors] = useState([]);
+
+function handleSubmit(event) {
+  event.preventDefault();
+  // first name is required
+  if (firstName) {
     const formData = { firstName: firstName, lastName: lastName };
     const dataArray = [...submittedData, formData];
     setSubmittedData(dataArray);
     setFirstName("");
     setLastName("");
+    setErrors([]);
+  } else {
+    setErrors(["First name is required!"]);
   }
-
+} 
   const listOfSubmissions = submittedData.map((data, index) => {
     return (
       <div key={index}>
